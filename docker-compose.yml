@@ -3,14 +3,17 @@ version: '3.8'
 services:
   dubrecord:
     build: .
+    env_file:
+      - stack.env
     container_name: dubrecord
-    # environment:
-    #   tg_token: 
-    #   tg_api_id: 
-    #   tg_api_hash: 
-    #   app_mode: 
-    #   app_host: 
-      # app_port: ""     # Порт приложения
+    environment:
+      MY_ENVIRONMENT_VARIABLE: ${MY_ENVIRONMENT_VARIABLE}
+      # tg_token: 
+      # tg_api_id: 
+      # tg_api_hash: 
+      # app_mode: 
+      # app_host: 
+      # app_port:      # Порт приложения
     # Переадресация портов (пример, если меняете укажите)
     # ports:
     #   - "8000:8000"  # внешний:внутренний порт
