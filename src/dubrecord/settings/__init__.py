@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 from .logger import logger
-from .settings import ModeEnum, Settings, get_settings, get_pyrogram_client
+from .settings import ModeEnum, Settings, get_pyrogram_client, get_settings
 
 load_dotenv()
 
