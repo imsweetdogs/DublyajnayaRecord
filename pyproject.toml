@@ -4,8 +4,6 @@ version = "0.1.0"
 description = "Бот для записи дубляжников на запись. Онли пуш в какой беседе."
 authors = [{name = "Aleksey Baev",email = "git@sweetdogs.ru"}]
 maintainers = [{name = "Aleksey Baev", email = "git@sweetdogs.ru"}]
-readme = "README.md"
-license = {file = "LICENSE"}
 requires-python = ">=3.12"
 dependencies = [
     "aiogram>=3.21.0",
@@ -33,6 +31,7 @@ web = [
     "fastapi>=0.116.1",
     "uvicorn>=0.35.0",
 ]
+
 
 [tool.ruff]
 line-length = 140
