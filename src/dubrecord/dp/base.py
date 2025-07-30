@@ -21,7 +21,7 @@ class MentionFilter(Filter):
                     return True
         return False
 
-@router.message(F.chat.type.in_({"group", "supergroup"}), MentionFilter)
+@router.message(F.chat.type.in_({"group", "supergroup"}), MentionFilter()
 async def push(message: Message) -> None:
     logger.debug(message.text)
     entities = [message.text[entity.offset:entity.offset + entity.length][1:] for entity in message.entities if entity.type == "mention"]
