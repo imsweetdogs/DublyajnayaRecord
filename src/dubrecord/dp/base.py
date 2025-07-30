@@ -1,7 +1,8 @@
 from asyncio import gather
 
 from aiogram import F, Router
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, MessageEntity, MessageEntityType
+from aiogram.filters import Filter
 
 from dubrecord.settings import get_pyrogram_client, logger
 
@@ -12,7 +13,15 @@ def push_kb(title: str, url: str) -> None:
         [InlineKeyboardButton(text=title,url=url)],
     ])
 
-@router.message(F.chat.type.in_({"group", "supergroup"}), F.entities.mention)
+class MentionFilter(Filter):
+    async def __call__(self, message: Message) -> bool:
+        if message.entities:
+            for entity in message.entities:
+                if entity.type == MessageEntityType.MENTION:
+                    return True
+        return False
+
+@router.message(F.chat.type.in_({"group", "supergroup"}), MentionFilter)
 async def push(message: Message) -> None:
     logger.debug(message.text)
     entities = [message.text[entity.offset:entity.offset + entity.length][1:] for entity in message.entities if entity.type == "mention"]
