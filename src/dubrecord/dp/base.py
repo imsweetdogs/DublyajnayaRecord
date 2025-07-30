@@ -1,7 +1,7 @@
 from asyncio import gather
 
 from aiogram import F, Router
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, MessageEntity, MessageEntityType
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.filters import Filter
 
 from dubrecord.settings import get_pyrogram_client, logger
@@ -17,7 +17,7 @@ class MentionFilter(Filter):
     async def __call__(self, message: Message) -> bool:
         if message.entities:
             for entity in message.entities:
-                if entity.type == MessageEntityType.MENTION:
+                if entity.type == "mention":
                     return True
         return False
 
