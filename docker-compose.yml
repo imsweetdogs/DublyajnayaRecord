@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  dubrecord:
+    container_name: dubrecord
+    build: .
+    env_file:
+      - stack.env
+    environment:
+      MY_ENVIRONMENT_VARIABLE: ${MY_ENVIRONMENT_VARIABLE}
+    restart: unless-stopped
