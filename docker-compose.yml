@@ -4,12 +4,16 @@ services:
   newt:
     image: fosrl/newt
     container_name: newt
+    env_file:
+      - stack.env
+    environment:
+      MY_ENVIRONMENT_VARIABLE: ${MY_ENVIRONMENT_VARIABLE}
     restart: unless-stopped
   dubrecord:
+    container_name: dubrecord
     build: .
     env_file:
       - stack.env
-    container_name: dubrecord
     environment:
       MY_ENVIRONMENT_VARIABLE: ${MY_ENVIRONMENT_VARIABLE}
     restart: unless-stopped
