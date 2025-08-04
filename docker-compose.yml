@@ -1,6 +1,10 @@
 version: '3.8'
 
 services:
+  newt:
+    image: fosrl/newt
+    container_name: newt
+    restart: unless-stopped
   dubrecord:
     build: .
     env_file:
@@ -8,17 +12,4 @@ services:
     container_name: dubrecord
     environment:
       MY_ENVIRONMENT_VARIABLE: ${MY_ENVIRONMENT_VARIABLE}
-      # tg_token: 
-      # tg_api_id: 
-      # tg_api_hash: 
-      # app_mode: 
-      # app_host: 
-      # app_port:      # Порт приложения
-    # Переадресация портов (пример, если меняете укажите)
-    # ports:
-    #   - "8000:8000"  # внешний:внутренний порт
-    # Монтирование томов (если нужно)
-    # volumes:
-    #   - ./data:/app/data
     restart: unless-stopped
-    # command: ["uv", "run", "start"] # если нужно переопределить команду запуска
