@@ -49,7 +49,7 @@ async def push(message: Message) -> None:
         "Вы упомянули пользователя/пользователей пушнул всех кого мог.\nПерейти в чат можно по кнопке", 
         reply_markup=push_kb(
             title=message.chat.title,
-            url=link
+            url=link.invite_link
         )
     )
     
