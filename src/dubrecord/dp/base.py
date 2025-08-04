@@ -43,10 +43,14 @@ async def push(message: Message) -> None:
     users = await asyncio.gather(*tasks, return_exceptions=True)
     link = await message.chat.create_invite_link()
     tasks = [pusher(user, message, link.invite_link, semaphore) for user in users]
-    result = await asyncio.gather(*tasks, return_exceptions=True)
+    messages = await asyncio.gather(*tasks, return_exceptions=True)
+    not_pushed = []
+    for index, value in enumerate(messages):
+        if isinstance(value, BaseException):
+            not_pushed.append(entities[index])
     await message.bot.send_message(
         message.from_user.id, 
-        "Вы упомянули пользователя/пользователей пушнул всех кого мог.\nПерейти в чат можно по кнопке", 
+        f"Вы упомянули пользователя/пользователей пушнул всех кого мог.\nНе смог позвать следующих:{','.join(not_pushed)}\nПерейти в чат можно по кнопке", 
         reply_markup=push_kb(
             title=message.chat.title,
             url=link.invite_link
