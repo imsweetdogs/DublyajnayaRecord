@@ -44,8 +44,12 @@ async def push(message: Message) -> None:
     link = await message.chat.create_invite_link()
     tasks = [pusher(user, message, link.invite_link, semaphore) for user in users]
     result = await asyncio.gather(*tasks, return_exceptions=True)
-    await message.bot.send_message(message.from_user.id, "Вы упомянули пользователя/пользователей пушнул всех кого мог.\nПерейти в чат можно по кнопке", reply_markup=push_kb(
-                title=message.chat.title,
-                url=link,
-            ))
+    await message.bot.send_message(
+        message.from_user.id, 
+        "Вы упомянули пользователя/пользователей пушнул всех кого мог.\nПерейти в чат можно по кнопке", 
+        reply_markup=push_kb(
+            title=message.chat.title,
+            url=link
+        )
+    )
     
