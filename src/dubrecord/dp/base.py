@@ -36,8 +36,8 @@ async def pusher(user: int, message: Message, link: str, semaphore: asyncio.Sema
 @router.message(F.chat.type.in_({"group", "supergroup"}), MentionFilter())
 async def push(message: Message) -> None:
     logger.debug(message.text)
-    entities = [message.text[entity.offset:entity.offset + entity.length][1:] for entity in message.entities if entity.type == "mention"]
-
+    entities = [message.text[entity.offset:entity.offset + entity.length] for entity in message.entities if entity.type == "mention"]
+    logger.debug(f"entities")
     semaphore = asyncio.Semaphore(5)
     tasks = [resolver(entity, semaphore) for entity in entities]
     users = await asyncio.gather(*tasks, return_exceptions=True)
